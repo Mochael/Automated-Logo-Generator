@@ -2,12 +2,12 @@
 
 // // Creating the Cognitive Services credentials
 // // This requires a key corresponding to the service being used (i.e. text-analytics, etc)
-// let credentials = new CognitiveServicesCredentials("5422c9d769ac4fd8b14e2102771e3483");
+// var credentials = new CognitiveServicesCredentials("5422c9d769ac4fd8b14e2102771e3483");
 
 // const ComputerVisionClient = require('azure-cognitiveservices-computervision');
 
-// let client = new ComputerVisionClient(credentials, 'https://westcentralus.api.cognitive.microsoft.com');
-// let fileStream = require('fs').createReadStream('/Users/michaelkronovet/Desktop/IMG_9041.JPG');
+// var client = new ComputerVisionClient(credentials, 'https://westcentralus.api.cognitive.microsoft.com');
+// var fileStream = require('fs').createReadStream('/Users/michaelkronovet/Desktop/IMG_9041.JPG');
 // client.analyzeImageInStreamWithHttpOperationResponse(fileStream, {
 //   visualFeatures: ['Categories', 'Tags', 'Description']
 // }).then((response) => {
@@ -33,21 +33,21 @@ var friendlyHex = ["#00c29e","#00c1ff","#9d99ff","#ffb653","#db4114","ff9baa"];
 
 
 
-// let outputTags = [{ name: 'wall', confidence: 0.9785731434822083 },
+// var outputTags = [{ name: 'wall', confidence: 0.9785731434822083 },
 //   { name: 'indoor', confidence: 0.9387333989143372 },
 //   { name: 'green', confidence: 0.7196652293205261 },
 //   { name: 'vessel', confidence: 0.5777671337127686 },
 //   { name: 'bottle', confidence: 0.570465624332428 } ];
 
-let outputTags = ["wall","indoor","green","vessel","bottle"];
+var outputTags = ["wall","indoor","green","vessel","bottle"];
 
 
 function vowelName(outputTags){
-  let segments = [];
-  for(let i=0; i<outputTags.length;i++){
-    let tempString = "";
+  var segments = [];
+  for(var i=0; i<outputTags.length;i++){
+    var tempString = "";
     if(outputTags[i]!="wall"&&outputTags[i]!="indoor"&&outputTags[i]!="white"){
-      for(let j=0; j<outputTags[i].length;j++){
+      for(var j=0; j<outputTags[i].length;j++){
         tempString += outputTags[i].charAt(j);
         if(vowels.indexOf(outputTags[i].charAt(j))>=0){
           segments.push(tempString);
@@ -55,12 +55,12 @@ function vowelName(outputTags){
       }
     }
   }
-  let maxOne = segments.length;
-  let maxTwo = outputTags.length;
-  let indexOne = Math.floor(Math.random() * Math.floor(maxOne));
-  let indexTwo = Math.floor(Math.random() * Math.floor(maxTwo));
-  let segment = segments[indexOne];
-  let word = outputTags[indexTwo];
+  var maxOne = segments.length;
+  var maxTwo = outputTags.length;
+  var indexOne = Math.floor(Math.random() * Math.floor(maxOne));
+  var indexTwo = Math.floor(Math.random() * Math.floor(maxTwo));
+  var segment = segments[indexOne];
+  var word = outputTags[indexTwo];
   if(vowels.indexOf(word.charAt(0))>=0){
     word = word.slice(1, word.length);
   }
@@ -74,9 +74,9 @@ function vowelName(outputTags){
 
 
 function colorName(outputTags){
-  let colors = [];
-  let nouns = [];
-  for(let i=0;i<outputTags.length;i++){
+  var colors = [];
+  var nouns = [];
+  for(var i=0;i<outputTags.length;i++){
     if(possibleColors.indexOf(outputTags[i])>=0){
       colors.push(outputTags[i]);
     }
@@ -85,10 +85,10 @@ function colorName(outputTags){
     }
   }
   if(colors.length>0 && nouns.length>0){
-    let maxOne = colors.length;
-    let maxTwo = nouns.length;
-    let indexOne = Math.floor(Math.random() * Math.floor(maxOne));
-    let indexTwo = Math.floor(Math.random() * Math.floor(maxTwo));
+    var maxOne = colors.length;
+    var maxTwo = nouns.length;
+    var indexOne = Math.floor(Math.random() * Math.floor(maxOne));
+    var indexTwo = Math.floor(Math.random() * Math.floor(maxTwo));
 
     if(Math.floor(Math.random() * Math.floor(2))==1){
       return colors[indexOne]+nouns[indexTwo];
@@ -101,17 +101,17 @@ function colorName(outputTags){
 }
 
 function randomJoin(outputTags){
-  let name = "";
-  for(let i=0; i<outputTags.length;i++){
-    let tempString = "";
+  var name = "";
+  for(var i=0; i<outputTags.length;i++){
+    var tempString = "";
     if(outputTags[i]!="wall"&&outputTags[i]!="indoor"&&outputTags[i]!="white"){
-      let max = outputTags[i].length;
-      let indexOne = Math.floor(Math.random() * Math.floor(max));
-      let indexTwo = Math.floor(Math.random() * Math.floor(max));
-      let large = Math.max(indexOne,indexTwo);
-      let small = Math.min(indexOne,indexTwo);
+      var max = outputTags[i].length;
+      var indexOne = Math.floor(Math.random() * Math.floor(max));
+      var indexTwo = Math.floor(Math.random() * Math.floor(max));
+      var large = Math.max(indexOne,indexTwo);
+      var small = Math.min(indexOne,indexTwo);
 
-      for(let j=small; j<large;j++){
+      for(var j=small; j<large;j++){
         tempString += outputTags[i].charAt(j);
       }
     }
@@ -127,10 +127,10 @@ function getBrandName(outputTags){
   //If user inputs certain method or brandname choose that and Otherwise run random methods
 
   //Random int between 0-9
-  let max = 3;
-  let index = Math.floor(Math.random() * Math.floor(max));
+  var max = 3;
+  var index = Math.floor(Math.random() * Math.floor(max));
   //console.log(index);
-  let brandname;
+  var brandname;
   switch(index) {
     case 0:
       brandname = colorName(outputTags);
@@ -148,8 +148,8 @@ function getBrandName(outputTags){
 
 
 function pickStyle(){
-  let style;
-  let index = Math.floor(Math.random() * Math.floor(3));
+  var style;
+  var index = Math.floor(Math.random() * Math.floor(3));
   switch(index) {
     case 0:
       style = "fancy";
@@ -165,46 +165,46 @@ function pickStyle(){
 }
 
 function fontRandmizer(style){
-  let font;
+  var font;
   if(style=="friendly"){
-    let index = Math.floor(Math.random() * Math.floor(friendlyFonts.length));
+    var index = Math.floor(Math.random() * Math.floor(friendlyFonts.length));
     font = friendlyFonts[index];
   }
   else if(style=="fancy"){
-    let index = Math.floor(Math.random() * Math.floor(fancyFonts.length));
+    var index = Math.floor(Math.random() * Math.floor(fancyFonts.length));
     font = fancyFonts[index];
   }
   else if(style=="kidly"){
-    let index = Math.floor(Math.random() * Math.floor(kidlyFonts.length));
+    var index = Math.floor(Math.random() * Math.floor(kidlyFonts.length));
     font = kidlyFonts[index];
   }
   else{
-    let index = Math.floor(Math.random() * Math.floor(defaultFonts.length));
+    var index = Math.floor(Math.random() * Math.floor(defaultFonts.length));
     font = defaultFonts[index];
   }
 return font;
 }
 
 function pickColorFunc(style){
-  let returnArr=[];
+  var returnArr=[];
   if(style=="fancy"){
-    let index = Math.floor(Math.random() * Math.floor(fancyHex.length));
+    var index = Math.floor(Math.random() * Math.floor(fancyHex.length));
     returnArr.push(fancyHex[index]);
   }
   else if(style=="friendly"){
-    let indexOne = Math.floor(Math.random() * Math.floor(friendlyHex.length));
+    var indexOne = Math.floor(Math.random() * Math.floor(friendlyHex.length));
     returnArr.push(friendlyHex[indexOne]);
-    let indexTwo = Math.floor(Math.random() * Math.floor(friendlyHex.length));
+    var indexTwo = Math.floor(Math.random() * Math.floor(friendlyHex.length));
     returnArr.push(friendlyHex[indexTwo]);
   }
   else if(style=="kidly"){
-    let indexOne = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    var indexOne = Math.floor(Math.random() * Math.floor(kidlyHex.length));
     returnArr.push(kidlyHex[indexOne]);
-    let indexTwo = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    var indexTwo = Math.floor(Math.random() * Math.floor(kidlyHex.length));
     returnArr.push(kidlyHex[indexTwo]);
-    let indexThree = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    var indexThree = Math.floor(Math.random() * Math.floor(kidlyHex.length));
     returnArr.push(kidlyHex[indexThree]);
-    let indexFour = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    var indexFour = Math.floor(Math.random() * Math.floor(kidlyHex.length));
     returnArr.push(kidlyHex[indexFour]);
   }
   return returnArr;
@@ -212,10 +212,10 @@ function pickColorFunc(style){
 
 
 function userFeedback(userLst){
-  let imageNumber = fileName.length-1;
-  let lst = masterLst[imageNumber];
-  let returnLst = [];
-  for(let i=0; i<userLst.length;i++){
+  var imageNumber = fileName.length-1;
+  var lst = masterLst[imageNumber];
+  var returnLst = [];
+  for(var i=0; i<userLst.length;i++){
     if (userLst[i] == False){
       returnLst.push(userLst[i]);
     }
@@ -227,11 +227,11 @@ function userFeedback(userLst){
 }
 
 function mainRun(outputTags, brandName, logoStyle, filePath){
-  let tempBrand;
-  let tempStyle;
-  let tempColors;
-  let tempFont;
-  let tempArr;
+  var tempBrand;
+  var tempStyle;
+  var tempColors;
+  var tempFont;
+  var tempArr;
   if(brandName==false){
     tempBrand = getBrandName(outputTags);
   }
@@ -261,7 +261,7 @@ console.log(myOutput);
 // });
 // fs.writeFile(txtFile, myOutput[1], function(err) {
 // });
-// for(let i=0; i<myOutput[2].length;i++){
+// for(var i=0; i<myOutput[2].length;i++){
 //   fs.writeFile(txtFile, myOutput[2], function(err) {
 //   });
 // }
@@ -272,7 +272,7 @@ console.log(myOutput);
 
 // file.writeln(myOutput[0]);
 // file.writeln(myOutput[1]);
-// for(let i=0; i<myOutput[2].length;i++){
+// for(var i=0; i<myOutput[2].length;i++){
 //   file.writeln(myOutput[2][i]);
 // }
 // file.writeln(myOutput[3]);
