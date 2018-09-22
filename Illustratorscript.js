@@ -1,3 +1,36 @@
+#include "/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/Azure.js"
+
+var color1;
+var color2;
+var color3;
+var color4;
+
+var str = "";
+var txtFile = new File("information.txt");
+txtFile.open("r");
+while (!txtFile.eof) {
+	// read each line of text
+  var imagePath = textfile.readln();
+  var type = textfile.readln();
+  if (type == "fancy"){
+    color1 = textfile.readln();
+  }
+  else if (type == "friendly"){
+    color1 = textfile.readln();
+    color2 = textfile.readln();
+  }
+  else if (type == "kidly"){
+    color = textfile.readln();
+    color2 = textfile.readline();
+    color3 = textfile.readln();
+    color4 = textfile.readln();
+  }
+  var font = textfile.readln();
+  var name = textfile.readln();
+}
+
+
+
 doc = app.activeDocument;
 //image comes in as image.png
 //var image = new File("image.jpeg");
@@ -39,6 +72,9 @@ for(i = 0; i < LogoMarkItems.length; i++){
   }
 }
 app.cut();
+doc.pathItems[doc.pathItems.length-1].remove();
+var baseMark = doc.pathItems[doc.pathItems.length-1];
+baseMark.selected = true;
 //app.copy();
 //GroupedItem.remove();
 //app.paste();
