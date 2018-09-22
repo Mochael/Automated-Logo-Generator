@@ -17,12 +17,21 @@
 //   throw err;
 // });
 
-
-var Sentiment = require('sentiment');
-var sentiment = new Sentiment();
-
-var possibleColors = ["red", "blue", "white", "green", "yellow", "black", "orange", "purple", "cyan", "grey", "indigo", "black", "brown"];
+var possibleColors = ["red", "blue", "white", "green", "yellow", "black", "orange", "purple", "cyan", "grey", "indigo", "black", "brown","gold","brown"];
 var vowels = ["a", "e", "i", "o", "u"];
+var fancyFonts = ["Athelas","Birch Std","Charlemagne Std Bold","Cooper Std","Trajan Pro", "Apple Chancery"];
+var kidlyFonts = ["Bradley Hand Bold","Blackoak Std","Rosewood Std","Trattatello", "Mesquite Std Medium"];
+var friendlyFonts = ["Sukhumvit Set", "Orator Std", "Verdana","Giddyup Std","Iowan Old Style"];
+var defaultFonts = ["Times New Roman","Trebuchet MS","PT Serif","Palantino"];
+var fancyColors = ["black", "dark grey", "dark blue", "gold"];
+var friendyColors =["green", "orange", "red","brown"];
+var kidlyColors = ["purple", "yellow", "cyan", "indigo"];
+
+var fancyHex = ["#20265c","#042337","#000000","#ffffff","#ffb653"];
+var kidlyHex = ["#00b89a","#00c1ff","#9d99ff","#ff1493","#a7f0ff","#00c9af","#64abff","#fce6df","#bcffd0"];
+var friendlyHex = ["#00c29e","#00c1ff","#9d99ff","#ffb653","#db4114","ff9baa"];
+
+
 
 let outputTags = [{ name: 'wall', confidence: 0.9785731434822083 },
   { name: 'indoor', confidence: 0.9387333989143372 },
@@ -119,7 +128,7 @@ function getBrandName(outputTags){
   //If user inputs certain method or brandname choose that and Otherwise run random methods
 
   //Random int between 0-9
-  let max = 3
+  let max = 3;
   let index = Math.floor(Math.random() * Math.floor(max));
   //console.log(index);
   let brandname;
@@ -133,27 +142,6 @@ function getBrandName(outputTags){
     case 2:
     brandname = vowelName(outputTags);
       break;
-    case 3:
-      brandname = 3;
-      break;
-    case 4:
-      brandname = 4;
-      break;
-    case 5:
-      brandname = 5;
-      break;
-    case 6:
-      brandname = 6;
-      break;
-    case 7:
-      brandname = 7;
-      break;
-    case 8:
-      brandname = 8;
-      break;
-    case 9:
-      brandname = 9;
-      break;
 }
   return brandname;
 }
@@ -161,8 +149,112 @@ function getBrandName(outputTags){
 console.log(getBrandName(outputTags));
 
 
-// var result = sentiment.analyze("Kids have aids.");
-// console.log(result);
 
-//console.log(outputTags);
-//console.log(outputDes);
+function pickStyle(){
+  let style;
+  let index = Math.floor(Math.random() * Math.floor(3));
+  switch(index) {
+    case 0:
+      style = "fancy";
+      break;
+    case 1:
+      style = "friendly";
+      break;
+    case 2:
+      style = "kidly";
+      break;
+  }
+  return style;
+}
+
+function fontRandmizer(style){
+  let font;
+  if(style=="friendly"){
+    let index = Math.floor(Math.random() * Math.floor(friendlyFonts.length));
+    font = friendlyFonts[index];
+  }
+  else if(style=="fancy"){
+    let index = Math.floor(Math.random() * Math.floor(fancyFonts.length));
+    font = fancyFonts[index];
+  }
+  else if(style=="kidly"){
+    let index = Math.floor(Math.random() * Math.floor(kidlyFonts.length));
+    font = kidlyFonts[index];
+  }
+  else{
+    let index = Math.floor(Math.random() * Math.floor(defaultFonts.length));
+    font = defaultFonts[index];
+  }
+return font;
+}
+
+function pickColorFunc(style){
+  let returnArr=[];
+  if(style=="fancy"){
+    let index = Math.floor(Math.random() * Math.floor(fancyHex.length));
+    returnArr.push(fancyHex[index]);
+  }
+  else if(style=="friendly"){
+    let indexOne = Math.floor(Math.random() * Math.floor(friendlyHex.length));
+    returnArr.push(friendlyHex[indexOne]);
+    let indexTwo = Math.floor(Math.random() * Math.floor(friendlyHex.length));
+    returnArr.push(friendlyHex[indexTwo]);
+  }
+  else if(style=="kidly"){
+    let indexOne = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    returnArr.push(kidlyHex[indexOne]);
+    let indexTwo = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    returnArr.push(kidlyHex[indexTwo]);
+    let indexThree = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    returnArr.push(kidlyHex[indexThree]);
+    let indexFour = Math.floor(Math.random() * Math.floor(kidlyHex.length));
+    returnArr.push(kidlyHex[indexFour]);
+  }
+  return returnArr;
+}
+
+
+function userFeedback(userLst){
+  let imageNumber = fileName.length-1;
+  let lst = masterLst[imageNumber];
+  let returnLst = [];
+  for(let i=0; i<userLst.length;i++){
+    if (userLst[i] == False){
+      returnLst.push(userLst[i]);
+    }
+    else{
+      returnLst.push(userLst[i]);
+    }
+  return returnLst;
+  }
+}
+
+function mainRun(outputTags, brandName, logoStyle, filePath){
+  let tempBrand;
+  let tempStyle;
+  let tempColors;
+  let tempFont;
+  let tempArr;
+  let mainArr = [];
+  for(let i=0;i<5;i++){
+    if(brandName==false){
+      tempBrand = getBrandName(outputTags);
+    }
+    else{
+      tempBrand = brandName;
+    }
+    if(logoStyle==false){
+      tempStyle = pickStyle();
+    }
+    else{
+      tempStyle = logoStyle;
+    }
+    tempFont = fontRandmizer(tempStyle);
+    tempColors = pickColorFunc(tempStyle);
+    tempArr = [filePath,tempStyle,tempColors,tempFont,tempBrand];
+    mainArr.push(tempArr);
+  }
+  return mainArr;
+}
+
+console.log(mainRun(outputTags, false, false, "ok"));
