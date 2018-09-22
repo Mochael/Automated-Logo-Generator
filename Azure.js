@@ -1,11 +1,11 @@
 // const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
- 
+
 // // Creating the Cognitive Services credentials
 // // This requires a key corresponding to the service being used (i.e. text-analytics, etc)
 // let credentials = new CognitiveServicesCredentials("5422c9d769ac4fd8b14e2102771e3483");
 
 // const ComputerVisionClient = require('azure-cognitiveservices-computervision');
- 
+
 // let client = new ComputerVisionClient(credentials, 'https://westcentralus.api.cognitive.microsoft.com');
 // let fileStream = require('fs').createReadStream('/Users/michaelkronovet/Desktop/IMG_9041.JPG');
 // client.analyzeImageInStreamWithHttpOperationResponse(fileStream, {
@@ -33,24 +33,23 @@ var friendlyHex = ["#00c29e","#00c1ff","#9d99ff","#ffb653","#db4114","ff9baa"];
 
 
 
-let outputTags = [{ name: 'wall', confidence: 0.9785731434822083 },
-  { name: 'indoor', confidence: 0.9387333989143372 },
-  { name: 'green', confidence: 0.7196652293205261 },
-  { name: 'vessel', confidence: 0.5777671337127686 },
-  { name: 'bottle', confidence: 0.570465624332428 } ];
+// let outputTags = [{ name: 'wall', confidence: 0.9785731434822083 },
+//   { name: 'indoor', confidence: 0.9387333989143372 },
+//   { name: 'green', confidence: 0.7196652293205261 },
+//   { name: 'vessel', confidence: 0.5777671337127686 },
+//   { name: 'bottle', confidence: 0.570465624332428 } ];
 
-let outputDes = { text: 'a close up of a bottle',
-  confidence: 0.748919937727784 };
+let outputTags = ["wall","indoor","green","vessel","bottle"];
 
 
 function vowelName(outputTags){
   let segments = [];
   for(let i=0; i<outputTags.length;i++){
     let tempString = "";
-    if(outputTags[i]["name"]!="wall"&&outputTags[i]["name"]!="indoor"&&outputTags[i]["name"]!="white"){
-      for(let j=0; j<outputTags[i]["name"].length;j++){
-        tempString += outputTags[i]["name"].charAt(j);
-        if(vowels.indexOf(outputTags[i]["name"].charAt(j))>=0){
+    if(outputTags[i]!="wall"&&outputTags[i]!="indoor"&&outputTags[i]!="white"){
+      for(let j=0; j<outputTags[i].length;j++){
+        tempString += outputTags[i].charAt(j);
+        if(vowels.indexOf(outputTags[i].charAt(j))>=0){
           segments.push(tempString);
         }
       }
@@ -61,7 +60,7 @@ function vowelName(outputTags){
   let indexOne = Math.floor(Math.random() * Math.floor(maxOne));
   let indexTwo = Math.floor(Math.random() * Math.floor(maxTwo));
   let segment = segments[indexOne];
-  let word = outputTags[indexTwo]["name"];
+  let word = outputTags[indexTwo];
   if(vowels.indexOf(word.charAt(0))>=0){
     word = word.slice(1, word.length);
   }
@@ -78,11 +77,11 @@ function colorName(outputTags){
   let colors = [];
   let nouns = [];
   for(let i=0;i<outputTags.length;i++){
-    if(possibleColors.indexOf(outputTags[i]["name"])>=0){
-      colors.push(outputTags[i]["name"]);
+    if(possibleColors.indexOf(outputTags[i])>=0){
+      colors.push(outputTags[i]);
     }
     else{
-      nouns.push(outputTags[i]["name"]);
+      nouns.push(outputTags[i]);
     }
   }
   if(colors.length>0 && nouns.length>0){
@@ -105,15 +104,15 @@ function randomJoin(outputTags){
   let name = "";
   for(let i=0; i<outputTags.length;i++){
     let tempString = "";
-    if(outputTags[i]["name"]!="wall"&&outputTags[i]["name"]!="indoor"&&outputTags[i]["name"]!="white"){
-      let max = outputTags[i]["name"].length;
+    if(outputTags[i]!="wall"&&outputTags[i]!="indoor"&&outputTags[i]!="white"){
+      let max = outputTags[i].length;
       let indexOne = Math.floor(Math.random() * Math.floor(max));
       let indexTwo = Math.floor(Math.random() * Math.floor(max));
       let large = Math.max(indexOne,indexTwo);
       let small = Math.min(indexOne,indexTwo);
 
       for(let j=small; j<large;j++){
-        tempString += outputTags[i]["name"].charAt(j);
+        tempString += outputTags[i].charAt(j);
       }
     }
     name+=tempString;
@@ -145,8 +144,6 @@ function getBrandName(outputTags){
 }
   return brandname;
 }
-
-console.log(getBrandName(outputTags));
 
 
 
@@ -235,26 +232,49 @@ function mainRun(outputTags, brandName, logoStyle, filePath){
   let tempColors;
   let tempFont;
   let tempArr;
-  let mainArr = [];
-  for(let i=0;i<5;i++){
-    if(brandName==false){
-      tempBrand = getBrandName(outputTags);
-    }
-    else{
-      tempBrand = brandName;
-    }
-    if(logoStyle==false){
-      tempStyle = pickStyle();
-    }
-    else{
-      tempStyle = logoStyle;
-    }
-    tempFont = fontRandmizer(tempStyle);
-    tempColors = pickColorFunc(tempStyle);
-    tempArr = [filePath,tempStyle,tempColors,tempFont,tempBrand];
-    mainArr.push(tempArr);
+  if(brandName==false){
+    tempBrand = getBrandName(outputTags);
   }
-  return mainArr;
+  else{
+    tempBrand = brandName;
+  }
+  if(logoStyle==false){
+    tempStyle = pickStyle();
+  }
+  else{
+    tempStyle = logoStyle;
+  }
+  tempFont = fontRandmizer(tempStyle);
+  tempColors = pickColorFunc(tempStyle);
+  tempArr = [filePath,tempStyle,tempColors,tempFont,tempBrand];
+  return tempArr;
 }
 
-console.log(mainRun(outputTags, false, false, "ok"));
+var myOutput = mainRun(outputTags, false, false, "ok");
+console.log(myOutput);
+
+
+// var txtFile = "/Users/michaelkronovet/Desktop/Automated-Logo-Generator/testing.txt";
+
+// var fs = require('fs');
+// fs.writeFile(txtFile, myOutput, function(err) {
+// });
+// fs.writeFile(txtFile, myOutput[1], function(err) {
+// });
+// for(let i=0; i<myOutput[2].length;i++){
+//   fs.writeFile(txtFile, myOutput[2], function(err) {
+//   });
+// }
+// fs.writeFile(txtFile, myOutput[3], function(err) {
+// });
+// fs.writeFile(txtFile, myOutput[4], function(err) {
+// });
+
+// file.writeln(myOutput[0]);
+// file.writeln(myOutput[1]);
+// for(let i=0; i<myOutput[2].length;i++){
+//   file.writeln(myOutput[2][i]);
+// }
+// file.writeln(myOutput[3]);
+// file.writeln(myOutput[4]);
+// file.close();
