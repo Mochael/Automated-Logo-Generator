@@ -8,7 +8,7 @@ doc = app.activeDocument;
 
 var imagenew = doc.placedItems.add();
 app.coordinateSystem = CoordinateSystem.ARTBOARDCOORDINATESYSTEM;
-imagenew.file = new File("/Users/tkanchar/Documents/GitHub/Automated-Logo-Generator/image.jpeg");
+imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image.jpeg");
 var ratio = doc.height/imagenew.height;
 imagenew.height = doc.height;
 imagenew.width = imagenew.width*ratio;
@@ -19,9 +19,17 @@ imagenew.position = new Array ((actAbBds[2]-actAbBds[0])/2 - imagenew.width/2, (
 
 //SECTION 2: Live trace the image in black and white, with ignore white set to true
 var traceItem = imagenew.trace();
-traceItem.tracing.TracingOptions.tracingMode = TracingModeType.TRACINGMODEBLACKANDWHITE;
-traceItem.tracing.TracingOptions.ignoreWhite = true;
+//app.redraw();
+traceItem.tracing.tracingOptions.tracingMode = TracingModeType.TRACINGMODEBLACKANDWHITE;
+traceItem.tracing.tracingOptions.ignoreWhite = true;
 app.redraw();
+var GroupedItem = traceItem.tracing.expandTracing(false);
+//GroupedItem.selected = true;
+GroupedItem.pathItems[doc.pathItems.length].selected = true;
+//groupGroupedItem.selected = true;
+//pathItem totalShape = groupGroupedItem.pathItems[0];
+//totalShape.selected = true;
+
 
 //SECTION 3: Analyze the width and height of the image to correctly
 // format it with the text.
