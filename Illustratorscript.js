@@ -8,7 +8,7 @@ doc = app.activeDocument;
 
 var imagenew = doc.placedItems.add();
 app.coordinateSystem = CoordinateSystem.ARTBOARDCOORDINATESYSTEM;
-imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image.jpeg");
+imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image5.JPG");
 var ratio = doc.height/imagenew.height;
 imagenew.height = doc.height;
 imagenew.width = imagenew.width*ratio;
@@ -21,11 +21,16 @@ imagenew.position = new Array ((actAbBds[2]-actAbBds[0])/2 - imagenew.width/2, (
 var traceItem = imagenew.trace();
 //app.redraw();
 traceItem.tracing.tracingOptions.tracingMode = TracingModeType.TRACINGMODEBLACKANDWHITE;
-traceItem.tracing.tracingOptions.ignoreWhite = true;
+//traceItem.tracing.tracingOptions.ignoreWhite = true;
 app.redraw();
 var GroupedItem = traceItem.tracing.expandTracing(false);
 //GroupedItem.selected = true;
-GroupedItem.pathItems[doc.pathItems.length].selected = true;
+GroupedItem.pathItems[GroupedItem.pathItems.length-2].selected = true;
+app.copy();
+GroupedItem.remove();
+app.paste();
+var logoMark = doc.pathItems[0];
+//doc.pathItems[0].selected = true;
 //groupGroupedItem.selected = true;
 //pathItem totalShape = groupGroupedItem.pathItems[0];
 //totalShape.selected = true;
