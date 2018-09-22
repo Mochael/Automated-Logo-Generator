@@ -9,5 +9,7 @@ tell application "Adobe Illustrator"
      -- The documentation alleges that 'do javascript'
      -- can be passed an AppleScript file object, but
      -- I wasn't able to get that to work.
+
      do javascript "#include /Users/Tanishq/Documents/ALG/Automated-Logo-Generator/Illustratorscript.js"
+
 end tell
