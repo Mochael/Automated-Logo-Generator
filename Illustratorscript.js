@@ -21,7 +21,7 @@ imagenew.position = new Array ((actAbBds[2]-actAbBds[0])/2 - imagenew.width/2, (
 var traceItem = imagenew.trace();
 traceItem.tracing.TracingOptions.tracingMode = TracingModeType.TRACINGMODEBLACKANDWHITE;
 traceItem.tracing.TracingOptions.ignoreWhite = true;
-
+app.redraw();
 
 //SECTION 3: Analyze the width and height of the image to correctly
 // format it with the text.
