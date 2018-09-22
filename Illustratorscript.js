@@ -8,7 +8,7 @@ doc = app.activeDocument;
 
 var imagenew = doc.placedItems.add();
 app.coordinateSystem = CoordinateSystem.ARTBOARDCOORDINATESYSTEM;
-imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image5.JPG");
+imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image6.JPG");
 var ratio = doc.height/imagenew.height;
 imagenew.height = doc.height;
 imagenew.width = imagenew.width*ratio;
@@ -22,14 +22,27 @@ var traceItem = imagenew.trace();
 //app.redraw();
 traceItem.tracing.tracingOptions.tracingMode = TracingModeType.TRACINGMODEBLACKANDWHITE;
 //traceItem.tracing.tracingOptions.ignoreWhite = true;
+traceItem.tracing.tracingOptions.pathFidelity = 78;
+traceItem.tracing.tracingOptions.noiseFidelity = 0;
 app.redraw();
-var GroupedItem = traceItem.tracing.expandTracing(false);
+var GroupedItem = traceItem.tracing.expandTracing(true);
 //GroupedItem.selected = true;
-GroupedItem.pathItems[GroupedItem.pathItems.length-2].selected = true;
-app.copy();
-GroupedItem.remove();
-app.paste();
-var logoMark = doc.pathItems[0];
+//doc.pathItems[doc.pathItems.length-2].selected = true;
+//doc.pathItems[doc.pathItems.length-3].selected = true;
+doc.groupItems[0].selected = false;
+var LogoMarkItems = doc.groupItems[0].groupItems[0].pathItems;
+//doc.groupItems[0].groupItems[0].pathItems[7].selected=true;
+
+for(i = 0; i < LogoMarkItems.length; i++){
+  if(LogoMarkItems[i].pathPoints.length < 20){
+    LogoMarkItems[i].selected = true;
+  }
+}
+app.cut();
+//app.copy();
+//GroupedItem.remove();
+//app.paste();
+//var logoMark = doc.pathItems[0];
 //doc.pathItems[0].selected = true;
 //groupGroupedItem.selected = true;
 //pathItem totalShape = groupGroupedItem.pathItems[0];
