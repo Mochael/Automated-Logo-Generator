@@ -1,3 +1,8 @@
+/*
+
+
+//ILLUSTRATOR PART
+=======
 #include "/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/Azure.js"
 
 var color1;
@@ -30,8 +35,9 @@ while (!txtFile.eof) {
 }
 
 
-
+*/
 doc = app.activeDocument;
+var txt = doc.textFrames.add();
 //image comes in as image.png
 //var image = new File("image.jpeg");
 
@@ -41,7 +47,7 @@ doc = app.activeDocument;
 
 var imagenew = doc.placedItems.add();
 app.coordinateSystem = CoordinateSystem.ARTBOARDCOORDINATESYSTEM;
-imagenew.file = new File("/Users/Tanishq/Documents/ALG/Automated-Logo-Generator/image6.JPG");
+imagenew.file = new File("/Users/evannw/Documents/GitHub/Automated-Logo-Generator/image6.JPG");
 var ratio = doc.height/imagenew.height;
 imagenew.height = doc.height;
 imagenew.width = imagenew.width*ratio;
@@ -63,6 +69,7 @@ var GroupedItem = traceItem.tracing.expandTracing(true);
 //doc.pathItems[doc.pathItems.length-2].selected = true;
 //doc.pathItems[doc.pathItems.length-3].selected = true;
 doc.groupItems[0].selected = false;
+var logoMark = doc.groupItems[0].groupItems[0];
 var LogoMarkItems = doc.groupItems[0].groupItems[0].pathItems;
 //doc.groupItems[0].groupItems[0].pathItems[7].selected=true;
 
@@ -83,9 +90,43 @@ baseMark.selected = true;
 //groupGroupedItem.selected = true;
 //pathItem totalShape = groupGroupedItem.pathItems[0];
 //totalShape.selected = true;
+var len = logoMark.position[0];
+var hei = logoMark.position[1] - logoMark.height;
 
+//var logoCenter = new Array(logoMark.position[0]-(11/10)*logoMark.height, logoMark.position[1] + (1/2)*logoMark.length);
+txt.contents = "Goat";
+var textArtRange = doc.textFrames[0].textRange;
+textArtRange.characterAttributes.textFont = app.textFonts[0];
+txt.top = hei; //logoCenter[0];
+txt.left = len; //logoCenter[1];
+txt.height = logoMark.width/txt.width * txt.height;
+txt.width = logoMark.width;
 
 //SECTION 3: Analyze the width and height of the image to correctly
 // format it with the text.
 
+//*** TEXT PROPERTIES ***
+/*
+var content = "GOAT";
+var orient = TextOrientation.HORIZONTAL;
+var center = new Array(logoMark.position[0]-(11/10)*logoMark.height, logoMark.position[1] + (1/2)*logoMark.length);
+//var fontFamily = ;
+//var fontName = ;
+//var fontStyle = ;
+//var fontTypename = ;
+
+textFrame.properties =
+{
+    geometricBounds : [ 100,100,100,100 ],
+    strokeWidth : 2,
+    fillColor : "Black",
+    contents : "GOAT",
+    orientation : orient,
+    anchor : center
+};
+
+//var size ;
+// center variable is the anchor point of the text frame for creation, the we shift the position to center it.
+*/
+app.redraw();
 //SECTION 4: Export the image out as logo.png
